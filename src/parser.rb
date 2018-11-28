@@ -42,7 +42,7 @@ input = File.readlines(path_input).map do |line| # Read each line
   line.split.map(&:to_f) # Split each line into a list of numbers
 end
 
-# Keep the constants seperate as these will not go under the Coefficients
+# Keep the constants separate as these will not go under the Coefficients
 # section.
 constants = input.shift(1).transpose
 
