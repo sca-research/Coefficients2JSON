@@ -21,8 +21,6 @@ require 'json'
 path_input = 'coeffs.txt'
 path_output = 'coeffs.json'
 
-# categories = %w[ALU Shifts Stores Loads Multiplies]
-
 categories = { 'ALU' => %w[adds ands cmps eors movs orrs subs],
                'Shifts' => %w[lsls lsrs rors],
                'Stores' => %w[str strb strh],
