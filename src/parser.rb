@@ -72,16 +72,17 @@ grouped.push(input.shift(496).transpose)
 # Build the data structure from the data
 json = categories.each_with_index.map do |category, i|
   {
-    category =>
-    {
-      'Constant' => constants[i].reduce,
-      'Coefficients' =>
-        coefficients_categories.each_index.map do |j|
-          {
-            coefficients_categories[j] => grouped[j][i]
-          }
-        end.inject(:merge)
-    }
+    category[0] =>
+  {
+    'Coefficients' =>
+      coefficients_categories.each_index.map do |j|
+        {
+          coefficients_categories[j] => grouped[j][i]
+        }
+      end.inject(:merge),
+    'Constant' => constants[i].reduce,
+    'Instructions' => category[1]
+  }
   }
 end.inject(:merge)
 
