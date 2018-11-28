@@ -6,6 +6,8 @@ that someone else may find a use of this code. It will need changes but could be
 made into a tool that can parse any given file that contains a table of data.
 Minor changes would allow parsing of CSV files.
 
+*Feedback / Improvements are very welcome*
+
 ## What is it?
 This script will take in a file that contains a table of data and convert it
 into a JSON file in a specific format.
