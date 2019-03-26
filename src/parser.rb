@@ -48,9 +48,19 @@ coefficients_categories = %w[
   Bit_Flip2_Bit_Interactions
 ]
 
-def add_names(coefficients)
-  categories_no_alu = %w[Shifts Stores Loads Multiplies]
-  coefficients.map { |category| categories_no_alu.zip(category).to_h }
+def add_names(input)
+  categories = %w[ALU Shifts Stores Loads Multiplies]
+
+  # -1 as ALU is not loaded from input
+  coefficients = input.shift(categories.size - 1).transpose
+
+  # Add in 0s for ALU.
+  coefficients.each do |coeff|
+    coeff.prepend(0.to_f)
+  end
+
+  # Combine the keys and values
+  coefficients.map { |category| categories.zip(category).to_h }
 end
 
 # Read in the file into a 2D array of floats
@@ -66,20 +76,20 @@ grouped = []
 
 # Get all of the coefficients from the input and store them stored by
 # instruction category within the individual Coefficients category.
-grouped.push(add_names(input.shift(4).transpose)) # Previous Instruction
-grouped.push(add_names(input.shift(4).transpose)) # Subsequent Instruction
+grouped.push(add_names(input)) # Previous Instruction
+grouped.push(add_names(input)) # Subsequent Instruction
 grouped.push(input.shift(32).transpose) # Operand 1
 grouped.push(input.shift(32).transpose) # Operand 2
 grouped.push(input.shift(32).transpose) # Bit Flip 1
 grouped.push(input.shift(32).transpose) # Bit Flip 2
-grouped.push(add_names(input.shift(4).transpose)) # Hamming Weights
-grouped.push(add_names(input.shift(4).transpose))
-grouped.push(add_names(input.shift(4).transpose))
-grouped.push(add_names(input.shift(4).transpose))
-grouped.push(add_names(input.shift(4).transpose)) # Hamming Distance
-grouped.push(add_names(input.shift(4).transpose))
-grouped.push(add_names(input.shift(4).transpose))
-grouped.push(add_names(input.shift(4).transpose))
+grouped.push(add_names(input)) # Hamming Weights
+grouped.push(add_names(input))
+grouped.push(add_names(input))
+grouped.push(add_names(input))
+grouped.push(add_names(input)) # Hamming Distance
+grouped.push(add_names(input))
+grouped.push(add_names(input))
+grouped.push(add_names(input))
 grouped.push(input.shift(496).transpose) # Bit interactions
 grouped.push(input.shift(496).transpose)
 grouped.push(input.shift(496).transpose)
