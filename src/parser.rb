@@ -89,16 +89,16 @@ grouped.push(input.shift(496).transpose)
 json = categories.each_with_index.map do |category, i|
   {
     category[0] =>
-  {
-    'Coefficients' =>
-      coefficients_categories.each_index.map do |j|
-        {
-          coefficients_categories[j] => grouped[j][i]
-        }
-      end.inject(:merge),
-    'Constant' => constants[i].reduce,
-    'Instructions' => category[1]
-  }
+    {
+      'Coefficients' =>
+        coefficients_categories.each_with_index.map do |coeff_category, j|
+          {
+            coeff_category => grouped[j][i]
+          }
+        end.inject(:merge),
+      'Constant' => constants[i].reduce,
+      'Instructions' => category[1]
+    }
   }
 end.inject(:merge)
 
